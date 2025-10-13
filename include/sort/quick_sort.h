@@ -2,10 +2,22 @@
 #define QUICK_SORT_H
 
 /**
- * å¿«é€ŸæŽ’åºç®—æ³•
- * @param arr å¾…æŽ’åºæ•°ç»„
- * @param low èµ·å§‹ç´¢å¼•
- * @param high ç»“æŸç´¢å¼•
+ * @file quick_sort.h
+ * @brief ¿ìËÙÅÅÐòËã·¨½Ó¿Ú¶¨Òå
+ */
+
+/**
+ * @brief ¿ìËÙÅÅÐòËã·¨
+ * 
+ * ¿ìËÙÅÅÐòÊÇÒ»ÖÖ¸ßÐ§µÄ±È½ÏÅÅÐòËã·¨£¬²ÉÓÃ·ÖÖÎ²ßÂÔ¶ÔÊý×é½øÐÐÅÅÐò¡£
+ * ±¾ÊµÏÖÆ½¾ùÊ±¼ä¸´ÔÓ¶ÈÎªO(n log n)£¬×î»µÇé¿öÎªO(n0…5)£¬¿Õ¼ä¸´ÔÓ¶ÈÎªO(log n)¡£
+ * 
+ * @param arr ´ýÅÅÐòµÄÕûÊýÊý×é
+ * @param low ÅÅÐòµÄÆðÊ¼Ë÷Òý£¨Í¨³£Îª0£©
+ * @param high ÅÅÐòµÄ½áÊøË÷Òý£¨Í¨³£ÎªÊý×é³¤¶È¼õ1£©
+ * 
+ * @note ¸Ãº¯Êý»áÖ±½ÓÐÞ¸Ä´«ÈëµÄÊý×é£¬Ê¹Æä°´ÉýÐòÅÅÁÐ
+ * @warning È·±£lowºÍhigh²ÎÊýÔÚÊý×é·¶Î§ÄÚ£¬·ñÔò¿ÉÄÜµ¼ÖÂÎ´¶¨ÒåÐÐÎª
  */
 void quick_sort(int arr[], int low, int high);
 

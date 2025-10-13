@@ -1,18 +1,22 @@
 #ifndef ALGORITHM_LIB_H
 #define ALGORITHM_LIB_H
 
-// å¼•å…¥æ‰€æœ‰æ¨¡å—çš„å¤´æ–‡ä»¶
-#include "sort/bubble_sort.h"
-#include "sort/quick_sort.h"
-#include "sort/merge_sort.h"
-#include "search/binary_search.h"
-#include "search/linear_search.h"
-#include "graph/bfs.h"
-#include "graph/dfs.h"
-#include "utils/array_utils.h"
-#include "utils/memory_utils.h"
+// ÒıÈëËùÓĞÄ£¿éµÄÍ·ÎÄ¼ş
 
-// åº“ç‰ˆæœ¬ä¿¡æ¯
+// ÅÅĞòËã·¨Ä£¿é
+#include "sort/quick_sort.h"
+#include "sort/bubble_sort.h"
+
+// ÊıÑ§¼ÆËãÄ£¿é
+#include "math/math.h"
+
+// ÂË²¨Ëã·¨Ä£¿é
+#include "filter/mean_filter.h"
+
+// ËÑË÷Ëã·¨Ä£¿é
+#include "search/binary_search.h"
+
+// ¿â°æ±¾ĞÅÏ¢
 #define ALGORITHM_LIB_VERSION "1.0.0"
 
 #endif // ALGORITHM_LIB_H
