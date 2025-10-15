@@ -1,6 +1,8 @@
 #ifndef MATH_H
 #define MATH_H
 
+#define PI 3.14159265358979323846  // 定义π值
+#define EPSILON 1e-10              // 精度控制值
 /**
  * @file math.h
  * @brief 数学库函数接口定义
@@ -75,7 +77,7 @@ double power(double x, int n);
  * @return double x的平方根
  * @warning x必须为非负数，否则返回0
  */
-double sqrt(double x);
+double custom_sqrt(double x);
 
 /**
  * @brief 计算x的立方根
@@ -83,7 +85,7 @@ double sqrt(double x);
  * @param x 输入数
  * @return double x的立方根
  */
-double cbrt(double x);
+double custom_cbrt(double x);
 
 /**
  * @brief 四舍五入到最接近的整数
@@ -91,7 +93,7 @@ double cbrt(double x);
  * @param x 输入浮点数
  * @return int 四舍五入后的整数
  */
-int round_double(double x);
+int custom_round(double x);
 
 /**
  * @brief 向上取整
@@ -99,7 +101,7 @@ int round_double(double x);
  * @param x 输入浮点数
  * @return int 向上取整后的整数
  */
-int ceil_double(double x);
+int custom_ceil(double x);
 
 /**
  * @brief 向下取整
@@ -107,7 +109,7 @@ int ceil_double(double x);
  * @param x 输入浮点数
  * @return int 向下取整后的整数
  */
-int floor_double(double x);
+int custom_floor(double x);
 
 /**
  * @brief 判断一个数是否为素数
@@ -146,7 +148,7 @@ int lcm(int a, int b);
  * @param x 弧度值
  * @return double sin(x)的近似值
  */
-// double sin(double x);
+double custom_sin(double x);
 
 /**
  * @brief 计算余弦值
@@ -154,7 +156,7 @@ int lcm(int a, int b);
  * @param x 弧度值
  * @return double cos(x)的近似值
  */
-// double cos(double x);
+double custom_cos(double x);
 
 /**
  * @brief 计算正切值
@@ -162,7 +164,31 @@ int lcm(int a, int b);
  * @param x 弧度值
  * @return double tan(x)的近似值
  */
-// double tan(double x);
+double custom_tan(double x);
+
+/**
+ * @brief 计算反正弦值
+ * 
+ * @param x 输入值，范围[-1,1]
+ * @return double asin(x)的弧度值，范围[-π/2, π/2]
+ */
+double custom_asin(double x);
+
+/**
+ * @brief 计算反余弦值
+ * 
+ * @param x 输入值，范围[-1,1]
+ * @return double acos(x)的弧度值，范围[0, π]
+ */
+double custom_acos(double x);
+
+/**
+ * @brief 计算反正切值
+ * 
+ * @param x 输入值
+ * @return double atan(x)的弧度值，范围[-π/2, π/2]
+ */
+double custom_atan(double x);
 
 /**
  * @brief 计算自然对数
@@ -171,6 +197,15 @@ int lcm(int a, int b);
  * @return double ln(x)的近似值
  */
 // double ln(double x);
+
+/**
+ * @brief 计算x除以y的余数
+ * 
+ * @param x 被除数
+ * @param y 除数
+ * @return double x除以y的余数，符号与x相同
+ */
+double custom_fmod(double x, double y);
 
 /**
  * @brief 计算常用对数（以10为底）
