@@ -47,10 +47,10 @@ int main() {
     
     // 测试取整函数
     printf("5. 取整函数测试:\n");
-    printf("   round_double(3.14) = %d\n", round_double(3.14));
-    printf("   round_double(3.7) = %d\n", round_double(3.7));
-    printf("   ceil_double(3.14) = %d\n", ceil_double(3.14));
-    printf("   floor_double(3.9) = %d\n\n", floor_double(3.9));
+    printf("   custom_round(3.14) = %d\n", custom_round(3.14));
+    printf("   custom_round(3.7) = %d\n", custom_round(3.7));
+    printf("   custom_ceil(3.14) = %d\n", custom_ceil(3.14));
+    printf("   custom_floor(3.9) = %d\n\n", custom_floor(3.9));
     
     // 测试素数判断函数
     printf("6. 素数判断函数测试:\n");

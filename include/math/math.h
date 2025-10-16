@@ -208,12 +208,20 @@ double custom_atan(double x);
 double custom_fmod(double x, double y);
 
 /**
+ * @brief 计算以2为底的对数
+ * 
+ * @param x 输入正数
+ * @return double log2(x)的近似值，x≤0时返回-∞
+ */
+double custom_log2(double x);
+
+/**
  * @brief 计算常用对数（以10为底）
  * 
  * @param x 输入正数
- * @return double log10(x)的近似值
+ * @return double log10(x)的近似值，x≤0时返回-∞
  */
-// double log10(double x);
+double custom_log10(double x);
 
 /**
  * @brief 计算以base为底的对数
@@ -222,7 +230,7 @@ double custom_fmod(double x, double y);
  * @param base 对数的底
  * @return double log_base(x)的近似值
  */
-// double log_base(double x, double base);
+double custom_log_base(double x, double base);
 
 /**
  * @brief 计算指数函数（e的x次方）
@@ -230,7 +238,7 @@ double custom_fmod(double x, double y);
  * @param x 指数值
  * @return double e^x的近似值
  */
-// double exp(double x);
+double custom_exp(double x);
 
 /**
  * @brief 生成[0,1)范围内的随机数
@@ -330,5 +338,205 @@ double custom_fmod(double x, double y);
  * @return double 弧度值
  */
 // double degrees_to_radians(double degrees);
+
+// =============================================================================
+// 向量运算函数接口定义
+// =============================================================================
+
+/**
+ * @brief 计算两个2D向量的点积
+ * 
+ * @param ax 第一个向量的x分量
+ * @param ay 第一个向量的y分量
+ * @param bx 第二个向量的x分量
+ * @param by 第二个向量的y分量
+ * @return double 点积结果
+ */
+double custom_vector2d_dot(double ax, double ay, double bx, double by);
+
+/**
+ * @brief 计算两个3D向量的点积
+ * 
+ * @param ax 第一个向量的x分量
+ * @param ay 第一个向量的y分量
+ * @param az 第一个向量的z分量
+ * @param bx 第二个向量的x分量
+ * @param by 第二个向量的y分量
+ * @param bz 第二个向量的z分量
+ * @return double 点积结果
+ */
+double custom_vector3d_dot(double ax, double ay, double az, double bx, double by, double bz);
+
+/**
+ * @brief 计算两个3D向量的叉积
+ * 
+ * @param ax 第一个向量的x分量
+ * @param ay 第一个向量的y分量
+ * @param az 第一个向量的z分量
+ * @param bx 第二个向量的x分量
+ * @param by 第二个向量的y分量
+ * @param bz 第二个向量的z分量
+ * @param result 输出参数，存储叉积结果的三个分量 [rx, ry, rz]
+ */
+void custom_vector3d_cross(double ax, double ay, double az, double bx, double by, double bz, double result[3]);
+
+/**
+ * @brief 计算2D向量的长度（模长）
+ * 
+ * @param x 向量的x分量
+ * @param y 向量的y分量
+ * @return double 向量的长度
+ */
+double custom_vector2d_length(double x, double y);
+
+/**
+ * @brief 计算3D向量的长度（模长）
+ * 
+ * @param x 向量的x分量
+ * @param y 向量的y分量
+ * @param z 向量的z分量
+ * @return double 向量的长度
+ */
+double custom_vector3d_length(double x, double y, double z);
+
+/**
+ * @brief 归一化2D向量
+ * 
+ * @param x 向量的x分量
+ * @param y 向量的y分量
+ * @param result 输出参数，存储归一化后的向量 [nx, ny]
+ * @return int 成功返回1，向量为零向量返回0
+ */
+int custom_vector2d_normalize(double x, double y, double result[2]);
+
+/**
+ * @brief 归一化3D向量
+ * 
+ * @param x 向量的x分量
+ * @param y 向量的y分量
+ * @param z 向量的z分量
+ * @param result 输出参数，存储归一化后的向量 [nx, ny, nz]
+ * @return int 成功返回1，向量为零向量返回0
+ */
+int custom_vector3d_normalize(double x, double y, double z, double result[3]);
+
+/**
+ * @brief 2D向量加法
+ * 
+ * @param ax 第一个向量的x分量
+ * @param ay 第一个向量的y分量
+ * @param bx 第二个向量的x分量
+ * @param by 第二个向量的y分量
+ * @param result 输出参数，存储加法结果 [rx, ry]
+ */
+void custom_vector2d_add(double ax, double ay, double bx, double by, double result[2]);
+
+/**
+ * @brief 3D向量加法
+ * 
+ * @param ax 第一个向量的x分量
+ * @param ay 第一个向量的y分量
+ * @param az 第一个向量的z分量
+ * @param bx 第二个向量的x分量
+ * @param by 第二个向量的y分量
+ * @param bz 第二个向量的z分量
+ * @param result 输出参数，存储加法结果 [rx, ry, rz]
+ */
+void custom_vector3d_add(double ax, double ay, double az, double bx, double by, double bz, double result[3]);
+
+/**
+ * @brief 2D向量减法
+ * 
+ * @param ax 被减向量的x分量
+ * @param ay 被减向量的y分量
+ * @param bx 减向量的x分量
+ * @param by 减向量的y分量
+ * @param result 输出参数，存储减法结果 [rx, ry]
+ */
+void custom_vector2d_subtract(double ax, double ay, double bx, double by, double result[2]);
+
+/**
+ * @brief 3D向量减法
+ * 
+ * @param ax 被减向量的x分量
+ * @param ay 被减向量的y分量
+ * @param az 被减向量的z分量
+ * @param bx 减向量的x分量
+ * @param by 减向量的y分量
+ * @param bz 减向量的z分量
+ * @param result 输出参数，存储减法结果 [rx, ry, rz]
+ */
+void custom_vector3d_subtract(double ax, double ay, double az, double bx, double by, double bz, double result[3]);
+
+/**
+ * @brief 2D向量与标量乘法
+ * 
+ * @param x 向量的x分量
+ * @param y 向量的y分量
+ * @param scalar 标量值
+ * @param result 输出参数，存储乘法结果 [rx, ry]
+ */
+void custom_vector2d_scale(double x, double y, double scalar, double result[2]);
+
+/**
+ * @brief 3D向量与标量乘法
+ * 
+ * @param x 向量的x分量
+ * @param y 向量的y分量
+ * @param z 向量的z分量
+ * @param scalar 标量值
+ * @param result 输出参数，存储乘法结果 [rx, ry, rz]
+ */
+void custom_vector3d_scale(double x, double y, double z, double scalar, double result[3]);
+
+/**
+ * @brief 计算两个2D向量之间的夹角（弧度）
+ * 
+ * @param ax 第一个向量的x分量
+ * @param ay 第一个向量的y分量
+ * @param bx 第二个向量的x分量
+ * @param by 第二个向量的y分量
+ * @return double 夹角（弧度值，范围[0, π]）
+ */
+double custom_vector2d_angle(double ax, double ay, double bx, double by);
+
+/**
+ * @brief 计算两个3D向量之间的夹角（弧度）
+ * 
+ * @param ax 第一个向量的x分量
+ * @param ay 第一个向量的y分量
+ * @param az 第一个向量的z分量
+ * @param bx 第二个向量的x分量
+ * @param by 第二个向量的y分量
+ * @param bz 第二个向量的z分量
+ * @return double 夹角（弧度值，范围[0, π]）
+ */
+double custom_vector3d_angle(double ax, double ay, double az, double bx, double by, double bz);
+
+/**
+ * @brief 计算2D向量在另一个2D向量上的投影
+ * 
+ * @param vx 要投影的向量的x分量
+ * @param vy 要投影的向量的y分量
+ * @param ux 投影目标向量的x分量
+ * @param uy 投影目标向量的y分量
+ * @param result 输出参数，存储投影向量 [px, py]
+ * @return int 成功返回1，投影目标为零向量返回0
+ */
+int custom_vector2d_project(double vx, double vy, double ux, double uy, double result[2]);
+
+/**
+ * @brief 计算3D向量在另一个3D向量上的投影
+ * 
+ * @param vx 要投影的向量的x分量
+ * @param vy 要投影的向量的y分量
+ * @param vz 要投影的向量的z分量
+ * @param ux 投影目标向量的x分量
+ * @param uy 投影目标向量的y分量
+ * @param uz 投影目标向量的z分量
+ * @param result 输出参数，存储投影向量 [px, py, pz]
+ * @return int 成功返回1，投影目标为零向量返回0
+ */
+int custom_vector3d_project(double vx, double vy, double vz, double ux, double uy, double uz, double result[3]);
 
 #endif // MATH_H
