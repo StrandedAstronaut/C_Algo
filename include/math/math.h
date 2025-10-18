@@ -346,197 +346,154 @@ double custom_exp(double x);
 /**
  * @brief 计算两个2D向量的点积
  * 
- * @param ax 第一个向量的x分量
- * @param ay 第一个向量的y分量
- * @param bx 第二个向量的x分量
- * @param by 第二个向量的y分量
+ * @param vec1 第一个向量 [x, y]
+ * @param vec2 第二个向量 [x, y]
  * @return double 点积结果
  */
-double custom_vector2d_dot(double ax, double ay, double bx, double by);
+double custom_vector2d_dot(const double vec1[2], const double vec2[2]);
 
 /**
  * @brief 计算两个3D向量的点积
  * 
- * @param ax 第一个向量的x分量
- * @param ay 第一个向量的y分量
- * @param az 第一个向量的z分量
- * @param bx 第二个向量的x分量
- * @param by 第二个向量的y分量
- * @param bz 第二个向量的z分量
+ * @param vec1 第一个向量 [x, y, z]
+ * @param vec2 第二个向量 [x, y, z]
  * @return double 点积结果
  */
-double custom_vector3d_dot(double ax, double ay, double az, double bx, double by, double bz);
+double custom_vector3d_dot(const double vec1[3], const double vec2[3]);
 
 /**
  * @brief 计算两个3D向量的叉积
  * 
- * @param ax 第一个向量的x分量
- * @param ay 第一个向量的y分量
- * @param az 第一个向量的z分量
- * @param bx 第二个向量的x分量
- * @param by 第二个向量的y分量
- * @param bz 第二个向量的z分量
+ * @param vec1 第一个向量 [x, y, z]
+ * @param vec2 第二个向量 [x, y, z]
  * @param result 输出参数，存储叉积结果的三个分量 [rx, ry, rz]
  */
-void custom_vector3d_cross(double ax, double ay, double az, double bx, double by, double bz, double result[3]);
+void custom_vector3d_cross(const double vec1[3], const double vec2[3], double result[3]);
 
 /**
  * @brief 计算2D向量的长度（模长）
  * 
- * @param x 向量的x分量
- * @param y 向量的y分量
+ * @param vec 向量 [x, y]
  * @return double 向量的长度
  */
-double custom_vector2d_length(double x, double y);
+double custom_vector2d_length(const double vec[2]);
 
 /**
  * @brief 计算3D向量的长度（模长）
  * 
- * @param x 向量的x分量
- * @param y 向量的y分量
- * @param z 向量的z分量
+ * @param vec 向量 [x, y, z]
  * @return double 向量的长度
  */
-double custom_vector3d_length(double x, double y, double z);
+double custom_vector3d_length(const double vec[3]);
 
 /**
  * @brief 归一化2D向量
  * 
- * @param x 向量的x分量
- * @param y 向量的y分量
+ * @param vec 输入向量 [x, y]
  * @param result 输出参数，存储归一化后的向量 [nx, ny]
  * @return int 成功返回1，向量为零向量返回0
  */
-int custom_vector2d_normalize(double x, double y, double result[2]);
+int custom_vector2d_normalize(const double vec[2], double result[2]);
 
 /**
  * @brief 归一化3D向量
  * 
- * @param x 向量的x分量
- * @param y 向量的y分量
- * @param z 向量的z分量
+ * @param vec 输入向量 [x, y, z]
  * @param result 输出参数，存储归一化后的向量 [nx, ny, nz]
  * @return int 成功返回1，向量为零向量返回0
  */
-int custom_vector3d_normalize(double x, double y, double z, double result[3]);
+int custom_vector3d_normalize(const double vec[3], double result[3]);
 
 /**
  * @brief 2D向量加法
  * 
- * @param ax 第一个向量的x分量
- * @param ay 第一个向量的y分量
- * @param bx 第二个向量的x分量
- * @param by 第二个向量的y分量
+ * @param vec1 第一个向量 [x, y]
+ * @param vec2 第二个向量 [x, y]
  * @param result 输出参数，存储加法结果 [rx, ry]
  */
-void custom_vector2d_add(double ax, double ay, double bx, double by, double result[2]);
+void custom_vector2d_add(const double vec1[2], const double vec2[2], double result[2]);
 
 /**
  * @brief 3D向量加法
  * 
- * @param ax 第一个向量的x分量
- * @param ay 第一个向量的y分量
- * @param az 第一个向量的z分量
- * @param bx 第二个向量的x分量
- * @param by 第二个向量的y分量
- * @param bz 第二个向量的z分量
+ * @param vec1 第一个向量 [x, y, z]
+ * @param vec2 第二个向量 [x, y, z]
  * @param result 输出参数，存储加法结果 [rx, ry, rz]
  */
-void custom_vector3d_add(double ax, double ay, double az, double bx, double by, double bz, double result[3]);
+void custom_vector3d_add(const double vec1[3], const double vec2[3], double result[3]);
 
 /**
  * @brief 2D向量减法
  * 
- * @param ax 被减向量的x分量
- * @param ay 被减向量的y分量
- * @param bx 减向量的x分量
- * @param by 减向量的y分量
+ * @param vec1 被减向量 [x, y]
+ * @param vec2 减向量 [x, y]
  * @param result 输出参数，存储减法结果 [rx, ry]
  */
-void custom_vector2d_subtract(double ax, double ay, double bx, double by, double result[2]);
+void custom_vector2d_subtract(const double vec1[2], const double vec2[2], double result[2]);
 
 /**
  * @brief 3D向量减法
  * 
- * @param ax 被减向量的x分量
- * @param ay 被减向量的y分量
- * @param az 被减向量的z分量
- * @param bx 减向量的x分量
- * @param by 减向量的y分量
- * @param bz 减向量的z分量
+ * @param vec1 被减向量 [x, y, z]
+ * @param vec2 减向量 [x, y, z]
  * @param result 输出参数，存储减法结果 [rx, ry, rz]
  */
-void custom_vector3d_subtract(double ax, double ay, double az, double bx, double by, double bz, double result[3]);
+void custom_vector3d_subtract(const double vec1[3], const double vec2[3], double result[3]);
 
 /**
  * @brief 2D向量与标量乘法
  * 
- * @param x 向量的x分量
- * @param y 向量的y分量
+ * @param vec 输入向量 [x, y]
  * @param scalar 标量值
  * @param result 输出参数，存储乘法结果 [rx, ry]
  */
-void custom_vector2d_scale(double x, double y, double scalar, double result[2]);
+void custom_vector2d_scale(const double vec[2], double scalar, double result[2]);
 
 /**
  * @brief 3D向量与标量乘法
  * 
- * @param x 向量的x分量
- * @param y 向量的y分量
- * @param z 向量的z分量
+ * @param vec 输入向量 [x, y, z]
  * @param scalar 标量值
  * @param result 输出参数，存储乘法结果 [rx, ry, rz]
  */
-void custom_vector3d_scale(double x, double y, double z, double scalar, double result[3]);
+void custom_vector3d_scale(const double vec[3], double scalar, double result[3]);
 
 /**
  * @brief 计算两个2D向量之间的夹角（弧度）
  * 
- * @param ax 第一个向量的x分量
- * @param ay 第一个向量的y分量
- * @param bx 第二个向量的x分量
- * @param by 第二个向量的y分量
+ * @param vec1 第一个向量 [x, y]
+ * @param vec2 第二个向量 [x, y]
  * @return double 夹角（弧度值，范围[0, π]）
  */
-double custom_vector2d_angle(double ax, double ay, double bx, double by);
+double custom_vector2d_angle(const double vec1[2], const double vec2[2]);
 
 /**
  * @brief 计算两个3D向量之间的夹角（弧度）
  * 
- * @param ax 第一个向量的x分量
- * @param ay 第一个向量的y分量
- * @param az 第一个向量的z分量
- * @param bx 第二个向量的x分量
- * @param by 第二个向量的y分量
- * @param bz 第二个向量的z分量
+ * @param vec1 第一个向量 [x, y, z]
+ * @param vec2 第二个向量 [x, y, z]
  * @return double 夹角（弧度值，范围[0, π]）
  */
-double custom_vector3d_angle(double ax, double ay, double az, double bx, double by, double bz);
+double custom_vector3d_angle(const double vec1[3], const double vec2[3]);
 
 /**
  * @brief 计算2D向量在另一个2D向量上的投影
  * 
- * @param vx 要投影的向量的x分量
- * @param vy 要投影的向量的y分量
- * @param ux 投影目标向量的x分量
- * @param uy 投影目标向量的y分量
+ * @param vec 要投影的向量 [x, y]
+ * @param target 投影目标向量 [x, y]
  * @param result 输出参数，存储投影向量 [px, py]
  * @return int 成功返回1，投影目标为零向量返回0
  */
-int custom_vector2d_project(double vx, double vy, double ux, double uy, double result[2]);
+int custom_vector2d_project(const double vec[2], const double target[2], double result[2]);
 
 /**
  * @brief 计算3D向量在另一个3D向量上的投影
  * 
- * @param vx 要投影的向量的x分量
- * @param vy 要投影的向量的y分量
- * @param vz 要投影的向量的z分量
- * @param ux 投影目标向量的x分量
- * @param uy 投影目标向量的y分量
- * @param uz 投影目标向量的z分量
+ * @param vec 要投影的向量 [x, y, z]
+ * @param target 投影目标向量 [x, y, z]
  * @param result 输出参数，存储投影向量 [px, py, pz]
  * @return int 成功返回1，投影目标为零向量返回0
  */
-int custom_vector3d_project(double vx, double vy, double vz, double ux, double uy, double uz, double result[3]);
+int custom_vector3d_project(const double vec[3], const double target[3], double result[3]);
 
 #endif // MATH_H
