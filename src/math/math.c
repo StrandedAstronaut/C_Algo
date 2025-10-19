@@ -52,9 +52,16 @@ double min_double(double a, double b) {
 
 /**
  * 计算x的n次幂（整数幂）
+ * 
+ * 数学推导：
+ * 1. 基本情况：x^0 = 1，任何数的0次幂都是1
+ * 2. 对于负指数：x^(-n) = 1/(x^n)
+ * 3. 快速幂算法：利用二进制表示将时间复杂度从O(n)降到O(log n)
+ *    - 将n表示为二进制：n = b_kb_{k-1}...b_1b_0
+ *    - 则x^n = x^(b_k*2^k + ... + b_1*2^1 + b_0*2^0) = x^(b_k*2^k) * ... * x^(b_0*2^0)
  */
 double power(double x, int n) {
-    // 参数检查����
+    // 参数检查 - 任何数的0次幂都是1
     if (n == 0) {
         return 1.0;  // 任何数的0次幂都是1
     }
@@ -81,20 +88,25 @@ double power(double x, int n) {
 
 /**
  * 计算x的平方根（使用牛顿迭代法）
+ * 
+ * 数学推导：
+ * 使用牛顿迭代法求解方程f(y) = y² - x = 0
+ * 迭代公式：y_{n+1} = y_n - f(y_n)/f'(y_n) = y_n - (y_n² - x)/(2y_n) = (y_n + x/y_n)/2
+ * 这个迭代公式会快速收敛到x的平方根，初始猜测值可以选择x/2
  */
 double custom_sqrt(double x) {
-    // �������
+    // 参数检查
     if (x < 0) {
         return 0.0;  // 负数没有实数平方根
     }
     
     if (x == 0 || x == 1) {
-        return x;  // 0��1��ƽ�����������Լ�
+        return x;  // 0和1的平方根就是其本身
     }
     
     // 牛顿迭代法计算平方根
     double precision = 1e-10;  // 精度要求
-    double guess = x / 2.0;    // ��ʼ�²�ֵ
+    double guess = x / 2.0;    // 初始猜测值
     
     while (abs_double(guess * guess - x) > precision) {
         guess = (guess + x / guess) / 2.0;
@@ -105,6 +117,12 @@ double custom_sqrt(double x) {
 
 /**
  * 计算x的立方根
+ * 
+ * 数学推导：
+ * 对于任意实数x，我们需要找到y，使得y³ = x
+ * 使用牛顿迭代法求解方程f(y) = y³ - x = 0
+ * 迭代公式：y_{n+1} = y_n - f(y_n)/f'(y_n) = y_n - (y_n³ - x)/(3y_n²) = (2y_n + x/y_n²)/3
+ * 对于负数，可以先计算其绝对值的立方根，再恢复符号
  */
 double custom_cbrt(double x) {
     // 参数检查
@@ -117,7 +135,7 @@ double custom_cbrt(double x) {
     double abs_x = abs_double(x);
     
     // 牛顿迭代法计算立方根
-    double precision = 1e-10;  // ����Ҫ��
+    double precision = 1e-10;  // 精度要求
     double guess = abs_x / 3.0;  // 初始猜测值
     
     while (abs_double(guess * guess * guess - abs_x) > precision) {
@@ -142,6 +160,15 @@ int custom_round(double x) {
 
 /**
  * 向上取整
+ * 
+ * 数学定义：
+ * ceil(x) = 最小的整数y，使得y ≥ x
+ * 
+ * 实现逻辑：
+ * 1. 取x的整数部分
+ * 2. 如果x为正数且不是整数，则结果为整数部分+1
+ * 3. 如果x为负数且不是整数，则结果为整数部分
+ * 4. 如果x为整数，则结果就是x的整数部分
  */
 int custom_ceil(double x) {
     int integer_part = (int)x;
@@ -153,12 +180,20 @@ int custom_ceil(double x) {
     if (x < 0 && x != integer_part) {
         return integer_part;
     }
-    // x������
+    // x为整数
     return integer_part;
 }
 
 /**
  * 向下取整
+ * 
+ * 数学定义：
+ * floor(x) = 最大的整数y，使得y ≤ x
+ * 
+ * 实现逻辑：
+ * 1. 取x的整数部分
+ * 2. 如果x为负数且不是整数，则结果为整数部分-1
+ * 3. 对于正数或整数，结果就是x的整数部分
  */
 int custom_floor(double x) {
     int integer_part = (int)x;
@@ -166,7 +201,7 @@ int custom_floor(double x) {
     if (x < 0 && x != integer_part) {
         return integer_part - 1;
     }
-    // x������������
+    // x为正数或整数
     return integer_part;
 }
 
@@ -201,13 +236,20 @@ int is_prime(int n) {
 /**
  * 计算两个数的最大公约数（GCD）
  * 使用欧几里得算法
+ * 
+ * 数学推导：
+ * 欧几里得算法基于以下性质：gcd(a, b) = gcd(b, a % b)
+ * 证明：设a = b*q + r，其中0 ≤ r < b
+ *      如果d是a和b的公约数，则d | a且d | b，因此d | (a - b*q)，即d | r
+ *      反之，如果d是b和r的公约数，则d | b且d | r，因此d | (b*q + r)，即d | a
+ *      因此，gcd(a, b) = gcd(b, r) = gcd(b, a % b)
  */
 int gcd(int a, int b) {
     // 参数检查
     a = abs_int(a);
     b = abs_int(b);
     
-    // ŷ������㷨
+    // 欧几里得算法
     while (b != 0) {
         int temp = b;
         b = a % b;
@@ -219,18 +261,39 @@ int gcd(int a, int b) {
 
 /**
  * 计算两个数的最小公倍数（LCM）
- * LCM(a,b) = |a*b| / GCD(a,b)
+ * 
+ * 数学推导：
+ * 对于任意两个非零整数a和b，有以下关系：
+ * LCM(a,b) * GCD(a,b) = |a*b|
+ * 因此，LCM(a,b) = |a*b| / GCD(a,b)
+ * 
+ * 证明：设g = gcd(a,b)，则a = g*a'，b = g*b'，其中gcd(a',b') = 1
+ *      LCM(a,b) = g*a'*b' （因为a'和b'互质）
+ *      |a*b| = g*a' * g*b' = g²*a'*b'
+ *      所以，LCM(a,b) = |a*b| / g = |a*b| / GCD(a,b)
  */
 int lcm(int a, int b) {
     if (a == 0 || b == 0) {
         return 0;  // 0和任何数的最小公倍数是0
     }
     
-    // ����LCM
-    // ʹ��abs_intȷ�����Ϊ����
+    // 计算LCM
+    // 使用abs_int确保结果为正值
     return abs_int(a * b) / gcd(a, b);
 }
 
+/**
+ * 计算正弦函数值
+ * 
+ * 数学推导：
+ * sin(x)的泰勒展开式（以0为中心）：
+ * sin(x) = x - x³/3! + x⁵/5! - x⁷/7! + ... + (-1)^n x^(2n+1)/(2n+1)! + ...
+ * 
+ * 实现策略：
+ * 1. 利用sin(x)的周期性，将x归一化到[-π, π]范围内，减少计算量
+ * 2. 使用泰勒级数展开计算近似值，直到项的绝对值小于精度要求
+ * 3. 为了避免重复计算，每一项通过前一项计算：下一项 = 当前项 * x² / [(2i)*(2i+1)]
+ */
 double custom_sin(double x)
 {
     // 将x归一化到[-π, π]范围内，减少计算量
@@ -244,11 +307,11 @@ double custom_sin(double x)
     int sign = 1;         // 符号，交替变化
     int i = 1;            // 迭代计数器
     
-    // 2. 迭代计算泰勒展开式直到项足够小
+    // 迭代计算泰勒展开式直到项足够小
     while (abs_double(term) > EPSILON) {
         result += sign * term;
         
-        // ������һ��: ����ǰһ����㣬�����ظ�����
+        // 计算下一项: 基于前一项计算，避免重复计算
         // 下一项 = 当前项 * x² / [(2i)*(2i+1)]
         term *= x * x / ((2 * i) * (2 * i + 1));
         sign *= -1;  // 符号翻转
@@ -258,12 +321,29 @@ double custom_sin(double x)
     return result;
 }
 
+/**
+ * 计算余弦函数值
+ * 
+ * 数学推导：
+ * 利用三角函数的相位关系：cos(x) = sin(x + π/2)
+ * 这个关系可以从单位圆上的几何解释得到：
+ * 当角度增加π/2时，点在单位圆上旋转到y轴方向，原来的x坐标（余弦值）变为y坐标（正弦值）
+ */
 double custom_cos(double x)
 {
     return custom_sin(x + PI / 2);
 }
 
-// 正切函数通过sin(x)/cos(x)实现
+/**
+ * 计算正切函数值
+ * 
+ * 数学推导：
+ * 正切函数的定义：tan(x) = sin(x) / cos(x)
+ * 
+ * 特殊情况处理：
+ * 当cos(x)接近0时（x接近π/2 + kπ，k为整数），tan(x)趋近于正无穷或负无穷
+ * 此时返回一个极大值或极小值来模拟这种行为
+ */
 double custom_tan(double x) {
     double cos_val = custom_cos(x);
     
@@ -276,7 +356,17 @@ double custom_tan(double x) {
     return custom_sin(x) / cos_val;
 }
 
-// 反正弦函数 - 使用泰勒级数实现
+/**
+ * 计算反正弦函数值
+ * 
+ * 数学推导：
+ * asin(x)的泰勒级数展开式（以0为中心）：
+ * asin(x) = x + (1/2)x^3/3 + (1×3)/(2×4)x^5/5 + (1×3×5)/(2×4×6)x^7/7 + ...
+ * 其中系数满足递推关系：a_{n+1} = a_n * (2n-1)/(2n)
+ * 
+ * 定义域：
+ * asin(x)的定义域是[-1, 1]，值域是[-π/2, π/2]
+ */
 double custom_asin(double x) {
     // 输入值范围检查
     if (x < -1.0) x = -1.0;
@@ -305,12 +395,35 @@ double custom_asin(double x) {
     return result;
 }
 
-// 反余弦函数通过π/2 - asin(x)实现
+/**
+ * 计算反余弦函数值
+ * 
+ * 数学推导：
+ * 利用三角函数的互补关系：cos(x) = sin(π/2 - x)
+ * 取反函数后得到：acos(x) = π/2 - asin(x)
+ * 
+ * 定义域：
+ * acos(x)的定义域是[-1, 1]，值域是[0, π]
+ */
 double custom_acos(double x) {
     return PI / 2 - custom_asin(x);
 }
 
-// 反正切函数 - 使用泰勒级数实现
+/**
+ * 计算反正切函数值
+ * 
+ * 数学推导：
+ * atan(x)的泰勒级数展开式（以0为中心）：
+ * atan(x) = x - x^3/3 + x^5/5 - x^7/7 + ... + (-1)^n x^(2n+1)/(2n+1) + ...
+ * 这个级数在|x| ≤ 1时收敛
+ * 
+ * 对于|x| > 1的情况，利用以下恒等式：
+ * atan(x) = π/2 - atan(1/x)，当x > 0时
+ * atan(x) = -π/2 - atan(1/x)，当x < 0时
+ * 
+ * 值域：
+ * atan(x)的值域是(-π/2, π/2)
+ */
 double custom_atan(double x) {
     // 参数检查
     if (abs_double(x) < EPSILON) {
@@ -341,11 +454,16 @@ double custom_atan(double x) {
 }
 
 /**
- * @brief 计算x除以y的余数
+ * 计算x除以y的余数
  * 
- * @param x 被除数
- * @param y 除数
- * @return double x除以y的余数，符号与x相同
+ * 数学定义：
+ * fmod(x, y) = x - y * trunc(x/y)
+ * 其中trunc是向零取整函数
+ * 
+ * 特点：
+ * 1. 余数的符号与被除数x相同
+ * 2. 当y为0时，返回0（特殊处理）
+ * 3. 当x为0时，返回0
  */
 double custom_fmod(double x, double y) {
     // 参数检查
@@ -570,4 +688,123 @@ double custom_exp(double x) {
     }
     
     return exp_r * two_pow_k;
+}
+
+double custom_vector2d_dot(const double vec1[2], const double vec2[2])
+{
+    return vec1[0] * vec2[0] + vec1[1] * vec2[1];
+}
+
+double custom_vector3d_dot(const double vec1[3], const double vec2[3])
+{
+     return vec1[0] * vec2[0] + vec1[1] * vec2[1] + vec1[2] * vec2[2];
+}
+
+void custom_vector3d_cross(const double vec1[3], const double vec2[3], double result[3])
+{
+    result[0] = vec1[1] * vec2[2] - vec1[2] * vec2[1];
+    result[1] = vec1[2] * vec2[0] - vec1[0] * vec2[2];
+    result[2] = vec1[0] * vec2[1] - vec1[1] * vec2[0];
+}
+
+double custom_vector2d_length(const double vec[2])
+{
+    return custom_sqrt(vec[0] * vec[0] + vec[1] * vec[1]);
+}
+
+double custom_vector3d_length(const double vec[3])
+{
+    return custom_sqrt(vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2]);
+}
+
+int custom_vector2d_normalize(const double vec[2], double result[2])
+{
+    double len = custom_vector2d_length(vec);
+    if (len < EPSILON) return 0;
+    result[0] = vec[0] / len;
+    result[1] = vec[1] / len;
+    return 1;
+}
+
+int custom_vector3d_normalize(const double vec[3], double result[3])
+{
+    double len = custom_vector3d_length(vec);
+    if (len < EPSILON) return 0;
+    result[0] = vec[0] / len;
+    result[1] = vec[1] / len;
+    result[2] = vec[2] / len;
+    return 1;
+}
+
+void custom_vector2d_add(const double vec1[2], const double vec2[2], double result[2])
+{
+    result[0] = vec1[0] + vec2[0];
+    result[1] = vec1[1] + vec2[1];
+}
+
+void custom_vector3d_add(const double vec1[3], const double vec2[3], double result[3])
+{
+    result[0] = vec1[0] + vec2[0];
+    result[1] = vec1[1] + vec2[1];
+    result[2] = vec1[2] + vec2[2];
+}
+
+void custom_vector2d_subtract(const double vec1[2], const double vec2[2], double result[2])
+{
+    result[0] = vec1[0] - vec2[0];
+    result[1] = vec1[1] - vec2[1];
+}
+
+void custom_vector3d_subtract(const double vec1[3], const double vec2[3], double result[3])
+{
+    result[0] = vec1[0] - vec2[0];
+    result[1] = vec1[1] - vec2[1];
+    result[2] = vec1[2] - vec2[2];
+}
+
+void custom_vector2d_scale(const double vec[2], double scalar, double result[2])
+{
+    result[0] = vec[0] * scalar;
+    result[1] = vec[1] * scalar;
+}
+
+void custom_vector3d_scale(const double vec[3], double scalar, double result[3])
+{
+    result[0] = vec[0] * scalar;
+    result[1] = vec[1] * scalar;
+    result[2] = vec[2] * scalar;
+}
+
+double custom_vector2d_angle(const double vec1[2], const double vec2[2])
+{
+    double dot = custom_vector2d_dot(vec1, vec2);
+    double len1 = custom_vector2d_length(vec1);
+    double len2 = custom_vector2d_length(vec2);
+    return custom_acos(dot / (len1 * len2));
+}
+
+double custom_vector3d_angle(const double vec1[3], const double vec2[3])
+{
+    double dot = custom_vector3d_dot(vec1, vec2);
+    double len1 = custom_vector3d_length(vec1);
+    double len2 = custom_vector3d_length(vec2);
+    return custom_acos(dot / (len1 * len2));
+}
+
+int custom_vector2d_project(const double vec[2], const double onto[2], double result[2])
+{
+    double dot = custom_vector2d_dot(vec, onto);
+    double onto_len_sq = custom_vector2d_dot(onto, onto);
+    if (onto_len_sq < EPSILON) return 0;
+    custom_vector2d_scale(onto, dot / onto_len_sq, result);
+    return 1;
+}
+
+int custom_vector3d_project(const double vec[3], const double target[3], double result[3])
+{
+    double dot = custom_vector3d_dot(vec, target);
+    double target_len_sq = custom_vector3d_dot(target, target);
+    if (target_len_sq < EPSILON) return 0;
+    custom_vector3d_scale(target, dot / target_len_sq, result);
+    return 1;
 }

@@ -149,6 +149,110 @@ int main() {
     TEST(lcm, 0, 0, 5);
     printf("\n");
     
+    // 测试向量运算函数
+    printf("测试向量运算函数:\n");
+    
+    // 2D向量测试数据
+    double vec2d_1[2] = {3.0, 4.0};
+    double vec2d_2[2] = {1.0, 2.0};
+    double vec2d_zero[2] = {0.0, 0.0};
+    double vec2d_result[2];
+    
+    // 3D向量测试数据
+    double vec3d_1[3] = {1.0, 2.0, 3.0};
+    double vec3d_2[3] = {4.0, 5.0, 6.0};
+    double vec3d_zero[3] = {0.0, 0.0, 0.0};
+    double vec3d_result[3];
+    
+    // 测试2D点积
+    TEST_DOUBLE(custom_vector2d_dot, 11.0, 0.000001, vec2d_1, vec2d_2);
+    TEST_DOUBLE(custom_vector2d_dot, 0.0, 0.000001, vec2d_1, vec2d_zero);
+    
+    // 测试3D点积
+    TEST_DOUBLE(custom_vector3d_dot, 32.0, 0.000001, vec3d_1, vec3d_2);
+    TEST_DOUBLE(custom_vector3d_dot, 0.0, 0.000001, vec3d_1, vec3d_zero);
+    
+    // 测试3D叉积
+    custom_vector3d_cross(vec3d_1, vec3d_2, vec3d_result);
+    TEST_DOUBLE(abs_double, -3.0, 0.000001, vec3d_result[0]);
+    TEST_DOUBLE(abs_double, 6.0, 0.000001, vec3d_result[1]);
+    TEST_DOUBLE(abs_double, -3.0, 0.000001, vec3d_result[2]);
+    
+    // 测试向量长度
+    TEST_DOUBLE(custom_vector2d_length, 5.0, 0.000001, vec2d_1);
+    TEST_DOUBLE(custom_vector2d_length, 0.0, 0.000001, vec2d_zero);
+    TEST_DOUBLE(custom_vector3d_length, sqrt(14.0), 0.000001, vec3d_1);
+    TEST_DOUBLE(custom_vector3d_length, 0.0, 0.000001, vec3d_zero);
+    
+    // 测试向量归一化
+    TEST_BOOL(custom_vector2d_normalize, 1, vec2d_1, vec2d_result);
+    TEST_DOUBLE(custom_vector2d_length, 1.0, 0.000001, vec2d_result);
+    TEST_BOOL(custom_vector2d_normalize, 0, vec2d_zero, vec2d_result);
+    
+    TEST_BOOL(custom_vector3d_normalize, 1, vec3d_1, vec3d_result);
+    TEST_DOUBLE(custom_vector3d_length, 1.0, 0.000001, vec3d_result);
+    TEST_BOOL(custom_vector3d_normalize, 0, vec3d_zero, vec3d_result);
+    
+    // 测试向量加法
+    custom_vector2d_add(vec2d_1, vec2d_2, vec2d_result);
+    TEST_DOUBLE(abs_double, 4.0, 0.000001, vec2d_result[0]);
+    TEST_DOUBLE(abs_double, 6.0, 0.000001, vec2d_result[1]);
+    
+    custom_vector3d_add(vec3d_1, vec3d_2, vec3d_result);
+    TEST_DOUBLE(abs_double, 5.0, 0.000001, vec3d_result[0]);
+    TEST_DOUBLE(abs_double, 7.0, 0.000001, vec3d_result[1]);
+    TEST_DOUBLE(abs_double, 9.0, 0.000001, vec3d_result[2]);
+    
+    // 测试向量减法
+    custom_vector2d_subtract(vec2d_1, vec2d_2, vec2d_result);
+    TEST_DOUBLE(abs_double, 2.0, 0.000001, vec2d_result[0]);
+    TEST_DOUBLE(abs_double, 2.0, 0.000001, vec2d_result[1]);
+    
+    custom_vector3d_subtract(vec3d_1, vec3d_2, vec3d_result);
+    TEST_DOUBLE(abs_double, -3.0, 0.000001, vec3d_result[0]);
+    TEST_DOUBLE(abs_double, -3.0, 0.000001, vec3d_result[1]);
+    TEST_DOUBLE(abs_double, -3.0, 0.000001, vec3d_result[2]);
+    
+    // 测试向量缩放
+    custom_vector2d_scale(vec2d_1, 2.0, vec2d_result);
+    TEST_DOUBLE(abs_double, 6.0, 0.000001, vec2d_result[0]);
+    TEST_DOUBLE(abs_double, 8.0, 0.000001, vec2d_result[1]);
+    
+    custom_vector3d_scale(vec3d_1, 0.5, vec3d_result);
+    TEST_DOUBLE(abs_double, 0.5, 0.000001, vec3d_result[0]);
+    TEST_DOUBLE(abs_double, 1.0, 0.000001, vec3d_result[1]);
+    TEST_DOUBLE(abs_double, 1.5, 0.000001, vec3d_result[2]);
+    
+    // 测试向量夹角
+    double angle_2d = custom_vector2d_angle(vec2d_1, vec2d_2);
+    double expected_2d = acos(11.0 / (5.0 * sqrt(5.0)));
+    TEST_DOUBLE(abs_double, expected_2d, 0.000001, angle_2d);
+    
+    double angle_3d = custom_vector3d_angle(vec3d_1, vec3d_2);
+    double expected_3d = acos(32.0 / (sqrt(14.0) * sqrt(77.0)));
+    TEST_DOUBLE(abs_double, expected_3d, 0.000001, angle_3d);
+    
+    // 测试向量投影
+    TEST_BOOL(custom_vector2d_project, 1, vec2d_1, vec2d_2, vec2d_result);
+    double expected_proj_2d_x = 11.0 * 1.0 / 5.0;
+    double expected_proj_2d_y = 11.0 * 2.0 / 5.0;
+    TEST_DOUBLE(abs_double, expected_proj_2d_x, 0.000001, vec2d_result[0]);
+    TEST_DOUBLE(abs_double, expected_proj_2d_y, 0.000001, vec2d_result[1]);
+    
+    TEST_BOOL(custom_vector2d_project, 0, vec2d_1, vec2d_zero, vec2d_result);
+    
+    TEST_BOOL(custom_vector3d_project, 1, vec3d_1, vec3d_2, vec3d_result);
+    double expected_proj_3d_x = 32.0 * 4.0 / 77.0;
+    double expected_proj_3d_y = 32.0 * 5.0 / 77.0;
+    double expected_proj_3d_z = 32.0 * 6.0 / 77.0;
+    TEST_DOUBLE(abs_double, expected_proj_3d_x, 0.000001, vec3d_result[0]);
+    TEST_DOUBLE(abs_double, expected_proj_3d_y, 0.000001, vec3d_result[1]);
+    TEST_DOUBLE(abs_double, expected_proj_3d_z, 0.000001, vec3d_result[2]);
+    
+    TEST_BOOL(custom_vector3d_project, 0, vec3d_1, vec3d_zero, vec3d_result);
+    
+    printf("\n");
+    
     // 输出测试结果
     printf("===== 测试结果汇总 =====\n");
     printf("总测试数: %d\n", total_tests);

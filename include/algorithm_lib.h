@@ -4,8 +4,7 @@
 // 引入所有模块的头文件
 
 // 排序算法模块
-#include "sort/quick_sort.h"
-#include "sort/bubble_sort.h"
+#include "sort/sort.h"
 
 // 数学计算模块
 #include "math/math.h"
